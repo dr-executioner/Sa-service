@@ -3,11 +3,27 @@ import { Request, Response } from "express";
 import config from "../config/config";
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // TLS
   auth: {
-    user: config.mailId, 
-    pass: config.password, 
+    user: config.mailId,
+    pass: config.password,
   },
+  connectionTimeout: 30000, // 30 seconds
+  greetingTimeout: 30000,
+  socketTimeout: 30000,
+  logger: true, // Enable Nodemailer logging
+  debug: true, // Detailed debug output
+});
+
+// Verify transporter on startup
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("Nodemailer verification failed:", error);
+  } else {
+    console.log("Nodemailer ready to send emails");
+  }
 });
 
 export async function emailer(req: Request, res: Response): Promise<void> {
