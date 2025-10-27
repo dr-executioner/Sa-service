@@ -15,18 +15,19 @@ export async function analyseTextWithGemini(
 ): Promise<SentimentData> {
   try {
     const prompt = `
-            Analyze the following text and return a JSON with keys:
-            - content : the actual text as it is
-            - summary : 1-2 sentences summary
-            - tags : an array of keywords
-            - name : name mentioned in the text, if present
-            - email : email mentioned in the text , if present
-            - purpose : motive of the text in 1 or 2 words at max
-            - sentiment : positive , negative and neutral
-            
-            Text:"${text}"
-            Return strictly valid JSON
-        `;
+        Analyze the following text and return strictly valid JSON with these keys:
+        - content: copy the full text as provided.
+        - summary: 1-2 sentence summary of the main point.
+        - tags: array of unique, lowercase keywords from the text.
+        - name: person’s name mentioned, or null if absent.
+        - email: email address if present, or null.
+        - purpose: motive of the text in 1-2 words at most.
+        - sentiment: one of "positive", "negative", or "neutral".
+        - phone: phone number if present, or null.
+
+        Text: "${text}"
+        Only return the JSON object. Do not include any additional notes or explanation.
+      `;
 
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
@@ -46,17 +47,16 @@ export async function analyseTextWithGemini(
       const jsonString = response.text.replace(/```json\n?|\n?```/g, "").trim();
       const result = JSON.parse(jsonString) as any;
 
-    //  if (
-    //    typeof result.sentiment !== "string" ||
-    //    typeof result.summary !== "string" ||
-    //    !Array.isArray(result.tags) ||
-    //    typeof result.priority !== "string"
-    //  ) {
-    //    throw new Error(
-    //      "Invalid response format from Gemini: Missing required fields"
-    //    );
-    //  }
-
+      //  if (
+      //    typeof result.sentiment !== "string" ||
+      //    typeof result.summary !== "string" ||
+      //    !Array.isArray(result.tags) ||
+      //    typeof result.priority !== "string"
+      //  ) {
+      //    throw new Error(
+      //      "Invalid response format from Gemini: Missing required fields"
+      //    );
+      //  }
 
       return result;
     } catch (parseError) {
