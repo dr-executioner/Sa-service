@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "@google/genai": "^1.27.0",
-    "cors": "^2.8.5"
+    "@types/nodemailer": "^7.0.3",
+    "cors": "^2.8.5",
+    "nodemailer": "^7.0.10"
   }
 }
