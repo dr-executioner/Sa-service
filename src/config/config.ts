@@ -8,6 +8,7 @@ interface Config {
   googleApiKey: string;
   mailId : string
   password: string
+  feUrl: string
 }
 
 const config: Config = {
@@ -16,6 +17,7 @@ const config: Config = {
   googleApiKey: process.env.GOOGLE_API_KEY || "",
   mailId: process.env.EMAIL_USER || "",
   password: process.env.EMAIL_PASS || "",
+  feUrl: process.env.FRONTEND_URL || "",
 };
 
 export default config;
