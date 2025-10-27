@@ -32,4 +32,3 @@ A robust Node.js + TypeScript backend service for sentiment analysis, designed t
 **Endpoint:**  
 `POST /api/analyse`
 
-**Request Example:**
