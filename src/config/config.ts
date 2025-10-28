@@ -9,6 +9,7 @@ interface Config {
   mailId : string
   password: string
   feUrl: string
+  sendGridApi: string
 }
 
 const config: Config = {
@@ -18,6 +19,7 @@ const config: Config = {
   mailId: process.env.EMAIL_USER || "",
   password: process.env.EMAIL_PASS || "",
   feUrl: process.env.FRONTEND_URL || "",
+  sendGridApi: process.env.SENDGRID_API || "",
 };
 
 export default config;
