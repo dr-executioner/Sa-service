@@ -4,8 +4,8 @@ import config from "../config/config";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 587,
-  secure: false, // TLS
+  port: 465,
+  secure: true, // TLS
   auth: {
     user: config.mailId,
     pass: config.password,
@@ -13,8 +13,8 @@ const transporter = nodemailer.createTransport({
   connectionTimeout: 30000, // 30 seconds
   greetingTimeout: 30000,
   socketTimeout: 30000,
-  logger: true, // Enable Nodemailer logging
-  debug: true, // Detailed debug output
+  logger: true, 
+  debug: true,
 });
 
 // Verify transporter on startup
